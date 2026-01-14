@@ -1,0 +1,18 @@
+{
+  "name": "react-sidepanes-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm --filter demo dev",
+    "test": "pnpm --filter react-sidepanes test",
+    "test:e2e": "pnpm exec bddgen && pnpm exec playwright test",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "playwright-bdd": "^8.4.0",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,75 @@
+.shrinkable-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  /* Uniform padding keeps icon at same position in both states */
+  /* 40px compact - 20px padding = 20px for icon */
+  padding: 10px;
+  /* Allow shrinking below content size */
+  min-width: 0;
+  /* Fixed height prevents vertical movement during transitions */
+  min-height: 40px;
+  height: 40px;
+  /* Keep icon left-aligned in both states */
+  justify-content: flex-start;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.shrinkable-button:hover {
+  background-color: #f0f0f0;
+}
+
+.shrinkable-button[data-active] {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.shrinkable-button[data-active]:hover {
+  background-color: #bbdefb;
+}
+
+/* Icon styling - fixed size, never shrinks */
+.shrinkable-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.shrinkable-button__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Label styling with animation */
+.shrinkable-button__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  opacity: 1;
+  transition: max-width 0.2s ease-out, opacity 0.15s ease-out;
+}
+
+/* Compact mode - hide label but keep icon position */
+.shrinkable-button[data-compact] .shrinkable-button__label {
+  max-width: 0;
+  opacity: 0;
+}
+
+/* When inside a compact sidepane that is closed (CSS-only fallback) */
+[data-sidepane][data-closed-style="compact"][data-expanded="false"] .shrinkable-button__label {
+  max-width: 0;
+  opacity: 0;
+}

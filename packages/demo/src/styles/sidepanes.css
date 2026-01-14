@@ -1,0 +1,187 @@
+/* Layout container */
+.sidepanes-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Sidepane base styles */
+[data-sidepane] {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  height: 100vh;
+  width: var(--sidepane-width);
+  transition: width var(--sidepane-animation-duration) ease-in-out;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Sidepane anchor positioning */
+[data-sidepane][data-anchor='left'] {
+  border-right: 1px solid #e0e0e0;
+  border-left: none;
+}
+
+[data-sidepane][data-anchor='right'] {
+  border-left: 1px solid #e0e0e0;
+  border-right: none;
+}
+
+/* Overlay mode (temporary/hovered panes) */
+[data-sidepane][data-overlay] {
+  position: fixed;
+  top: 0;
+  z-index: 1200;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+[data-sidepane][data-overlay][data-anchor='left'] {
+  left: 0;
+}
+
+[data-sidepane][data-overlay][data-anchor='right'] {
+  right: 0;
+}
+
+/* Compact mode (closed with compact style) */
+[data-sidepane][data-closed-style="compact"][data-expanded="false"] {
+  width: var(--sidepane-width);
+}
+
+/* Sidepane header */
+[data-sidepane-header] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 48px;
+}
+
+/* Toggle inside header - no fixed positioning */
+[data-sidepane-header] [data-sidepane-toggle] {
+  position: static;
+  flex-shrink: 0;
+}
+
+/* Remove margin and border from toggle button inside header */
+[data-sidepane-header] .toggle-button {
+  margin: 0;
+  border: none;
+}
+
+/* Left pane header: reduce padding to center toggle icon in compact mode */
+[data-sidepane][data-anchor='left'] [data-sidepane-header] {
+  padding-left: 2px;
+}
+
+/* Sidepane content */
+[data-sidepane-content] {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  position: relative;
+}
+
+/* Left sidepane: no horizontal padding so icons stay aligned when transitioning */
+[data-sidepane][data-anchor="left"] [data-sidepane-content] {
+  padding: 16px 0;
+}
+
+[data-sidepane][data-anchor="left"][data-closed-style="compact"][data-expanded="false"] [data-sidepane-content] {
+  padding: 16px 0;
+}
+
+/* Placeholder for overlay mode */
+[data-sidepane-placeholder] {
+  flex-shrink: 0;
+}
+
+/* Central pane */
+[data-central-pane] {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: var(--central-pane-min-width);
+  max-width: var(--central-pane-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #fafafa;
+  overflow: auto;
+  padding: 24px;
+}
+
+/* Toggle button wrapper */
+[data-sidepane-toggle] {
+  position: fixed;
+  top: 0;
+  z-index: 1299;
+}
+
+[data-sidepane-toggle][data-anchor='left'] {
+  left: 0;
+}
+
+[data-sidepane-toggle][data-anchor='right'] {
+  right: 0;
+}
+
+/* Toggle button */
+.toggle-button {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.toggle-button:hover:not(:disabled) {
+  background-color: #1976d2;
+  color: white;
+  border-color: #1976d2;
+}
+
+.toggle-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggle-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Resize handle */
+[data-sidepane-resize-handle] {
+  background-color: transparent;
+  transition: background-color 0.2s;
+}
+
+[data-sidepane-resize-handle]:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-sidepane-resize-handle][data-dragging] {
+  background-color: rgba(25, 118, 210, 0.1);
+}
+
+/* Edge hover sensor - invisible by default */
+[data-edge-hover-sensor] {
+  /* Uncomment to debug sensor positioning */
+  /* background-color: rgba(255, 0, 0, 0.1); */
+}
+
+/* Navigation button container */
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
