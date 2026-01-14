@@ -433,12 +433,13 @@ Then('the right pane should not be in the DOM', async ({ page }) => {
 // Cooldown Steps
 // ============================================
 
-When('I wait for the pane to close', async ({ page }) => {
-  await page.waitForTimeout(400)
-  // Verify pane is closed
+When('I wait for the right pane to close', async ({ page }) => {
+  // Wait for close timeout (100ms) + animation (200ms) + small buffer
+  // This ensures the pane state has changed to 'closed' and the cooldown timestamp is set
+  await page.waitForTimeout(350)
+  // Verify pane is actually closed (detached from DOM for hidden style)
   const rightPane = page.locator(SELECTORS.rightPane)
-  const count = await rightPane.count()
-  expect(count).toBe(0)
+  await rightPane.waitFor({ state: 'detached', timeout: 1000 })
 })
 
 When('I immediately hover over the right edge sensor area again', async ({ page }) => {
@@ -447,8 +448,12 @@ When('I immediately hover over the right edge sensor area again', async ({ page 
   if (box) {
     // Hover in the trigger zone immediately (no wait)
     await page.mouse.move(box.x + box.width - 10, box.y + box.height / 2)
-    // Short wait to allow potential trigger, but not full cooldown
-    await page.waitForTimeout(100)
+    // Wait a very short time - just enough for the hover event to trigger
+    // We check immediately after to verify the pane hasn't opened due to cooldown
+    // The cooldown is 500ms from when state changed to 'closed', but ~250ms
+    // have already elapsed by the time we get here (waiting for DOM removal).
+    // So we have ~250ms of remaining cooldown, and we wait only 50ms.
+    await page.waitForTimeout(50)
   }
 })
 

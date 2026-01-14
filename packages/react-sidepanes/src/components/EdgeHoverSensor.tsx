@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -82,7 +81,9 @@ export const EdgeHoverSensor: FC<Props> = ({
   } = useSidepanes()
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const lastClosedAtRef = useRef<number>(0)
+  // Initialize with current timestamp to ensure cooldown on first interaction
+  // This prevents the pane from opening immediately if already closed on mount
+  const lastClosedAtRef = useRef<number>(Date.now())
   const mouseMoveHandlerRef = useRef<((e: MouseEvent) => void) | null>(null)
 
   const pane = anchor === 'left' ? leftPane : rightPane
@@ -93,12 +94,15 @@ export const EdgeHoverSensor: FC<Props> = ({
   const paneRef = useRef(pane)
   paneRef.current = pane
 
-  // Record when the pane has just been closed
-  useEffect(() => {
-    if (pane.openState === 'closed') {
-      lastClosedAtRef.current = Date.now()
-    }
-  }, [pane.openState])
+  // Track previous openState to detect transitions
+  const prevOpenStateRef = useRef(pane.openState)
+
+  // Record when the pane has just been closed - update during render phase
+  // for most synchronous timing (before any effects or DOM observations)
+  if (pane.openState === 'closed' && prevOpenStateRef.current !== 'closed') {
+    lastClosedAtRef.current = Date.now()
+  }
+  prevOpenStateRef.current = pane.openState
 
   const triggerOpen = (): void => {
     const now = Date.now()
@@ -107,7 +111,8 @@ export const EdgeHoverSensor: FC<Props> = ({
     if (timeoutRef.current !== null) clearTimeout(timeoutRef.current)
 
     timeoutRef.current = setTimeout(() => {
-      if (pane.openState === 'closed') {
+      // Use paneRef.current to avoid stale closure - pane might have changed since timeout was set
+      if (paneRef.current.openState === 'closed') {
         if (anchor === 'left') {
           openLeftPaneTemporary()
         } else {

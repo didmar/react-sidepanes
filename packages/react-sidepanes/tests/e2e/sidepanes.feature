@@ -70,7 +70,7 @@ Feature: Sidepanes behavior
     When I hover over the right edge sensor area
     Then the right pane should be visible in hover mode
     When I move the mouse to the center of the content area
-    And I wait for the pane to close
+    And I wait for the right pane to close
     And I immediately hover over the right edge sensor area again
     Then the right pane should remain closed due to cooldown
 
