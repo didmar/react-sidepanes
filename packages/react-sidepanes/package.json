@@ -1,5 +1,5 @@
 {
-  "name": "react-sidepanes",
+  "name": "@didmar/react-sidepanes",
   "version": "0.1.0",
   "description": "Headless React components for building resizable, collapsible side panel layouts",
   "type": "module",
@@ -19,7 +19,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsup",

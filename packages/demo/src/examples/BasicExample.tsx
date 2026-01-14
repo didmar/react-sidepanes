@@ -6,7 +6,7 @@ import {
   CentralPane,
   EdgeHoverSensor,
   EDGE_SENSOR_TRIGGER_PADDING_IN_PX
-} from 'react-sidepanes'
+} from '@didmar/react-sidepanes'
 import { ShrinkableButton } from '../components/ShrinkableButton'
 import { HomeIcon, DocumentIcon, SettingsIcon, ProfileIcon, HelpIcon } from '../components/icons'
 

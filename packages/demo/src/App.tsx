@@ -1,4 +1,4 @@
-import { SidepanesProvider, localStorageAdapter } from 'react-sidepanes'
+import { SidepanesProvider, localStorageAdapter } from '@didmar/react-sidepanes'
 import { BasicExample } from './examples/BasicExample'
 import './styles/sidepanes.css'
 

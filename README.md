@@ -21,11 +21,11 @@ A headless React component library for building resizable, collapsible side pane
 ## Installation
 
 ```bash
-npm install react-sidepanes
+npm install @didmar/react-sidepanes
 # or
-pnpm add react-sidepanes
+pnpm add @didmar/react-sidepanes
 # or
-yarn add react-sidepanes
+yarn add @didmar/react-sidepanes
 ```
 
 ## Quick Start
@@ -37,7 +37,7 @@ import {
   SidepaneToggle,
   CentralPane,
   EdgeHoverSensor
-} from 'react-sidepanes'
+} from '@didmar/react-sidepanes'
 
 function App() {
   return (
@@ -300,7 +300,7 @@ import {
   localStorageAdapter,  // Uses localStorage
   cookieAdapter,        // Uses document.cookie
   noopAdapter           // No persistence
-} from 'react-sidepanes'
+} from '@didmar/react-sidepanes'
 
 // Use localStorage (default)
 <SidepanesProvider config={{ persistence: localStorageAdapter }}>
@@ -327,7 +327,7 @@ import type {
   SidepanesConfig,
   PersistenceAdapter,
   ToggleRenderProps
-} from 'react-sidepanes'
+} from '@didmar/react-sidepanes'
 ```
 
 ## Development
