@@ -271,7 +271,7 @@ export const BasicExample: FC = () => {
           <ul style={{ fontSize: '14px', color: '#666', marginTop: '8px', lineHeight: 1.8 }}>
             <li><code>data-sidepane</code></li>
             <li><code>data-anchor=&quot;left|right&quot;</code></li>
-            <li><code>data-state=&quot;open|closed&quot;</code></li>
+            <li><code>data-expanded=&quot;true|false&quot;</code></li>
             <li><code>data-temporary</code></li>
             <li><code>data-overlay</code></li>
           </ul>
